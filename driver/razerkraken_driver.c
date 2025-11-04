@@ -223,6 +223,10 @@ static ssize_t razer_attr_read_device_type(struct device *dev, struct device_att
         device_type = "Razer Kraken Kitty V2\n";
         break;
 
+    case USB_DEVICE_ID_RAZER_Blackshark_V2_HYPERSPEED:
+        device_type = "Razer BlackShark V2 HS 2.4\n";
+        break;
+
     default:
         device_type = "Unknown Device\n";
     }
@@ -706,6 +710,7 @@ static void razer_kraken_init(struct razer_kraken_device *dev, struct usb_interf
     case USB_DEVICE_ID_RAZER_KRAKEN_V2:
     case USB_DEVICE_ID_RAZER_KRAKEN_ULTIMATE:
     case USB_DEVICE_ID_RAZER_KRAKEN_KITTY_V2:
+    case USB_DEVICE_ID_RAZER_Blackshark_V2_HYPERSPEED:
         dev->led_mode_address = KYLIE_SET_LED_ADDRESS;
         dev->custom_address = KYLIE_CUSTOM_ADDRESS_START;
         dev->breathing_address[0] = KYLIE_BREATHING1_ADDRESS_START;
@@ -756,6 +761,7 @@ static int razer_kraken_probe(struct hid_device *hdev, const struct hid_device_i
         switch(dev->usb_pid) {
         case USB_DEVICE_ID_RAZER_KRAKEN_CLASSIC:
         case USB_DEVICE_ID_RAZER_KRAKEN_CLASSIC_ALT:
+        case USB_DEVICE_ID_RAZER_Blackshark_V2_HYPERSPEED:
             CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_matrix_effect_none);            // No effect
             CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_matrix_effect_static);          // Static effect
             CREATE_DEVICE_FILE(&hdev->dev, &dev_attr_matrix_current_effect);         // Get current effect
@@ -816,6 +822,7 @@ static void razer_kraken_disconnect(struct hid_device *hdev)
         switch(dev->usb_pid) {
         case USB_DEVICE_ID_RAZER_KRAKEN_CLASSIC:
         case USB_DEVICE_ID_RAZER_KRAKEN_CLASSIC_ALT:
+        case USB_DEVICE_ID_RAZER_Blackshark_V2_HYPERSPEED:
             device_remove_file(&hdev->dev, &dev_attr_matrix_effect_none);            // No effect
             device_remove_file(&hdev->dev, &dev_attr_matrix_effect_static);          // Static effect
             device_remove_file(&hdev->dev, &dev_attr_matrix_current_effect);         // Get current effect
@@ -866,6 +873,7 @@ static const struct hid_device_id razer_devices[] = {
     { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_KRAKEN_V2) },
     { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_KRAKEN_ULTIMATE) },
     { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_KRAKEN_KITTY_V2) },
+    { HID_USB_DEVICE(USB_VENDOR_ID_RAZER,USB_DEVICE_ID_RAZER_Blackshark_V2_HYPERSPEED) },
     { 0 }
 };
 

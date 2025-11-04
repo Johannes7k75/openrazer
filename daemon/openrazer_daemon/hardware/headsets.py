@@ -193,3 +193,14 @@ class RazerKrakenKittyV2(__RazerDevice):
                'set_custom_kraken']
 
     DEVICE_IMAGE = "https://medias-p1.phoenix.razer.com/sys-master-phoenix-images-container/hcc/h6b/9631977570334/kraken-kitty-v2-quartz-500x500.png"
+
+
+class RazerBlackSharkV2Hyperspeed(__RazerDevice):
+    """
+    Class for the Razer BlackShark V2 Hyperspeed
+    """
+    EVENT_FILE_REGEX = re.compile(r'.*Razer_BlackShark_V2_HS_2.4_0000000000000000-event-if03')
+
+    USB_VID = 0x1532
+    USB_PID = 0x0565
+    METHODS = ['get_device_type_headset']
